@@ -12,7 +12,7 @@ A simple, zero-cost Kubernetes GitOps environment you can run on your laptop.
 
 </div>
 
-## ✨ One-Click Setup
+## One-Click Setup
 
 **Just download and run a single script!**
 
@@ -35,7 +35,7 @@ powershell -ExecutionPolicy Bypass -File .\easy-start.ps1
 - Create a demo web application
 - Open browser windows to access everything
 
-## 🎮 What You'll Get
+## What You'll Get
 
 ### 1. Argo CD Dashboard
 
@@ -50,7 +50,7 @@ powershell -ExecutionPolicy Bypass -File .\easy-start.ps1
 - **URL**: http://localhost:8090
 - A sample NGINX application deployed using GitOps
 
-## 📱 For Absolute Beginners
+## For Absolute Beginners
 
 This project demonstrates how modern applications are deployed using GitOps:
 
@@ -64,7 +64,7 @@ This project demonstrates how modern applications are deployed using GitOps:
    - **Minikube**: A small version of Kubernetes that runs on your laptop
    - **Argo CD**: The tool that watches Git and updates your applications
 
-## 🔍 How to Use It
+## How to Use It
 
 ### Making Changes
 
@@ -84,7 +84,7 @@ minikube.exe stop
 minikube.exe delete
 ```
 
-## 🙋 Why This Project?
+## Why This Project?
 
 - **Zero Cloud Costs**: Everything runs locally on your laptop
 - **Learn DevOps Tools**: Get hands-on with the same tools used in enterprise environments
