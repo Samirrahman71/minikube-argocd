@@ -258,15 +258,7 @@ Write-Success "Port forwarding set up for Argo CD UI at https://localhost:$ARGOC
 # -----------------------------------------------------------------------------
 Write-Step "Deploying NGINX demo application"
 
-# Apply the Argo CD application definition
-& $kubectlPath apply -f ./apps/argo-app.yaml
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "Failed to apply Argo CD application"
-} else {
-    Write-Success "Argo CD application defined successfully"
-}
-
-# Apply NGINX manifests directly to ensure they're available
+# Apply NGINX manifests directly first to ensure they're immediately available
 Write-Info "Deploying NGINX manifests directly..."
 & $kubectlPath apply -f ./apps/nginx/
 if ($LASTEXITCODE -ne 0) {
@@ -275,9 +267,24 @@ if ($LASTEXITCODE -ne 0) {
     Write-Success "NGINX manifests applied successfully"
 }
 
+# Apply the Argo CD application definition for GitOps management
+Write-Info "Setting up GitOps with Argo CD..."
+& $kubectlPath apply -f ./apps/argo-app.yaml
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Failed to apply Argo CD application"
+} else {
+    Write-Success "Argo CD application defined successfully"
+}
+
+# Kill any existing port-forward on the same port for NGINX
+Get-NetTCPConnection -LocalPort $NGINX_PORT -ErrorAction SilentlyContinue | ForEach-Object { 
+    Stop-Process -Id (Get-Process -Id $_.OwningProcess).Id -Force -ErrorAction SilentlyContinue 
+}
+
 # Setup port forwarding for NGINX
 Start-Process powershell -WindowStyle Hidden -ArgumentList "-Command & '$kubectlPath' port-forward svc/nginx ${NGINX_PORT}:80"
 Write-Success "Port forwarding set up for NGINX demo app at http://localhost:$NGINX_PORT"
+Write-Info "   This zero-cost local setup replaces the AWS implementation that would cost $70-90/month"
 
 # -----------------------------------------------------------------------------
 # SUCCESS AND INSTRUCTIONS

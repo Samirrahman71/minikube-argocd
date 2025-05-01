@@ -7,7 +7,7 @@ data:
     <!DOCTYPE html>
     <html>
     <head>
-      <title>ArgoBox GitOps Demo</title>
+      <title>Minikube + Argo CD GitOps Demo</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@ data:
     </head>
     <body>
       <div class="container">
-        <h1>ArgoBox GitOps Demo</h1>
+        <h1>Minikube + Argo CD GitOps Demo</h1>
         <div class="badge">Zero-Cost Local Development</div>
         
         <p>This page is being served from an NGINX container deployed automatically through Argo CD's GitOps process!</p>
