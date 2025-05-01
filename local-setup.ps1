@@ -1,8 +1,7 @@
-# ArgoBox Local Setup Script
+# Minikube + Argo CD Setup Script
 # This script sets up a local Kubernetes environment with Argo CD using minikube
-# No cloud costs - completely free for learning
+# Zero-cost local development - no cloud expenses
 
-# Install required tools using Chocolatey
 Write-Host "Installing required tools..." -ForegroundColor Green
 choco install minikube kubernetes-cli kubernetes-helm -y
 
@@ -25,7 +24,7 @@ Write-Host "Waiting for Argo CD to start..." -ForegroundColor Green
 kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
 
 # Get the Argo CD admin password
-$PASSWORD = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | %{[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_))}
+$PASSWORD = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | ForEach-Object {[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_))}
 Write-Host "Argo CD admin password: $PASSWORD" -ForegroundColor Yellow
 
 # Port-forward the Argo CD server to access it locally
@@ -34,7 +33,7 @@ Start-Process powershell -ArgumentList "-Command", "kubectl port-forward svc/arg
 
 # Apply the NGINX application from the repository
 Write-Host "Applying the NGINX demo application..." -ForegroundColor Green
-kubectl apply -f ./argobox/apps/argo-app.yaml
+kubectl apply -f ./apps/argo-app.yaml
 
 # Instructions for accessing the applications
 Write-Host "`nSetup complete!" -ForegroundColor Green
