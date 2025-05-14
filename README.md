@@ -1,8 +1,7 @@
-# Zero-Cost GitOps with Minikube + Argo CD
+ Minikube + Argo CD
 
 <div align="center">
 
-![Minikube + Argo CD](https://miro.medium.com/v2/resize:fit:679/1*6e7R8cGWL5lqCMxIiApR2g.png)
 
 A simple, zero-cost Kubernetes GitOps environment you can run on your laptop.
 
